@@ -1,4 +1,3 @@
-import React from "react";
 import Cover from "../../Shared/Cover/Cover";
 import menuCover from "../../../assets/shop/banner2.jpg";
 import { Helmet } from "react-helmet-async";

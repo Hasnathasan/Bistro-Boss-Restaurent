@@ -1,4 +1,3 @@
-import React from 'react';
 import ShowMenus from '../../Shared/ShowMenus/ShowMenus';
 import Cover from '../../Shared/Cover/Cover';
 

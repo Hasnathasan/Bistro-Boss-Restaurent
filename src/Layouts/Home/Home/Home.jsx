@@ -1,4 +1,3 @@
-import React from "react";
 import Banner from "../Banner/Banner";
 import Slider from "../Slider/Slider";
 import MenuSection from "../MenuSection/MenuSection";

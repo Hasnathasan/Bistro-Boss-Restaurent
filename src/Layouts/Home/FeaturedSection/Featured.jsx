@@ -1,4 +1,3 @@
-import React from 'react';
 import SectionTitle from '../../../Components/SectionTitle/SectionTitle';
 import featuredImg from '../../../assets/home/featured.jpg'
 

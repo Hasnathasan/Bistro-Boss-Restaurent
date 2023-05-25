@@ -1,7 +1,5 @@
-import React from 'react';
-
 const ShowMenus = ({menu}) => {
-    const {name, recipe, image, category, price} = menu;
+    const {name, recipe, image, price} = menu;
     return (
         <div className='flex gap-4'>
             <img className='w-20 rounded-r-full rounded-b-full' src={image} alt="" />

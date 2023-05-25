@@ -1,5 +1,3 @@
-import React from "react";
-
 const Cover = ({ img, header, subTitle }) => {
   console.log(img);
   return (
