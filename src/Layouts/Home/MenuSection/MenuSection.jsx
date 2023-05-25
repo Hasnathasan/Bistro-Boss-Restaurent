@@ -5,6 +5,7 @@ import useMenu from '../../../hooks/useMenu';
 
 const MenuSection = () => {
     const [menus] = useMenu()
+    const populars = menus.filter(menu => menu.category === "popular")
     return (
         <div className='my-32'>
             <SectionTitle
@@ -13,7 +14,7 @@ const MenuSection = () => {
             ></SectionTitle>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-8 container mx-auto'>
                 {
-                    menus.map(menu => <ShowMenus key={menu._id} menu={menu}></ShowMenus>)
+                    populars.map(menu => <ShowMenus key={menu._id} menu={menu}></ShowMenus>)
                 }
             </div>
         </div>
