@@ -3,9 +3,11 @@ import Cover from '../../Shared/Cover/Cover';
 import menuCover from '../../../assets/shop/banner2.jpg'
 import Offer from '../TodaysOffer/Offer';
 import { Helmet } from 'react-helmet-async';
+import useMenu from '../../../hooks/useMenu';
 
 
 const Menu = () => {
+    const [menus] = useMenu();
     return (
         <div>
             <Helmet>
@@ -14,7 +16,7 @@ const Menu = () => {
                 </title>
             </Helmet>
             <Cover img={menuCover} header={"OUR MENU"} subTitle={"Would you like to try a dish?"}></Cover>
-            <Offer></Offer>
+            <Offer menus={menus}></Offer>
         </div>
     );
 };
