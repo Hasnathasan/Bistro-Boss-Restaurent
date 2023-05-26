@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import 'react-tabs/style/react-tabs.css';
 import Cover from "../Shared/Cover/Cover";
 import orderImg from '../../assets/shop/banner2.jpg'
 import useMenu from "../../hooks/useMenu";
 import FoodCard from "../../Components/FoodCard/FoodCard";
+import { useParams } from "react-router-dom";
 const Order = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const categories = ["salads", "pizzas", "soups", "desserts", "drinks"];
+  const {category} = useParams();
+  const initialIndex = categories.indexOf(category)
+  console.log(category);
+  console.log(initialIndex);
+  const [tabIndex, setTabIndex] = useState(initialIndex);
   const [menus] = useMenu();
   const desserts = menus.filter((menu) => menu.category === "dessert");
   const salads = menus.filter((menu) => menu.category === "salad");
@@ -17,12 +24,12 @@ const Order = () => {
         <Cover img={orderImg} header="Order Food" subTitle="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt quos delectus porro doloribus ut. Tempora reprehenderit"></Cover>
       <div className="my-32">
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-        <TabList className="border-none flex gap-4 mx-auto mb-6 w-max">
-          <Tab><button className="btn btn-info">Salad</button></Tab>
-          <Tab><button className="btn btn-info">Pizza</button></Tab>
-          <Tab><button className="btn btn-info">Soup</button></Tab>
-          <Tab><button className="btn btn-info">Desserts</button></Tab>
-          <Tab><button className="btn btn-info">Drinks</button></Tab>
+        <TabList className="flex gap-4 mx-auto mb-6 w-max">
+          <Tab>Salads</Tab>
+          <Tab>pizzas</Tab>
+          <Tab>soups</Tab>
+          <Tab>desserts</Tab>
+          <Tab>drinks</Tab>
         </TabList>
         <TabPanel>
             <div className="grid grid-cols-1 md:grid-cols-3 px-4 md:px-20 gap-10">

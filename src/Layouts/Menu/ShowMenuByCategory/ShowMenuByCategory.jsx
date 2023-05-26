@@ -1,5 +1,6 @@
 import ShowMenus from '../../Shared/ShowMenus/ShowMenus';
 import Cover from '../../Shared/Cover/Cover';
+import { Link } from 'react-router-dom';
 
 const ShowMenuByCategory = ({items, img, header, subTitle}) => {
     
@@ -11,7 +12,7 @@ const ShowMenuByCategory = ({items, img, header, subTitle}) => {
                 items.map(menu => <ShowMenus key={menu._id} menu={menu}></ShowMenus>)
             }
             </div>
-            <button className='btn btn-outline mt-5 mx-auto block border-0 border-b-2'>Order your favorite food</button>
+            <Link to={`/order/${header}`}><button className='btn btn-outline mt-5 mx-auto block border-0 border-b-2'>Order your favorite food</button></Link>
         </div>
     );
 };
