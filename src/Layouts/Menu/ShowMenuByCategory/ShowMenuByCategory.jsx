@@ -12,7 +12,7 @@ const ShowMenuByCategory = ({items, img, header, subTitle}) => {
                 items.map(menu => <ShowMenus key={menu._id} menu={menu}></ShowMenus>)
             }
             </div>
-            <Link to={`/order/${header}`}><button className='btn btn-outline mt-5 mx-auto block border-0 border-b-2'>Order your favorite food</button></Link>
+            <Link to={`/order/salads`}><button className='btn btn-outline mt-5 mx-auto block border-0 border-b-2'>Order your favorite food</button></Link>
         </div>
     );
 };

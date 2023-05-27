@@ -1,5 +1,4 @@
 const Cover = ({ img, header, subTitle }) => {
-  console.log(img);
   return (
     <div
       className="hero h-[600px]"
