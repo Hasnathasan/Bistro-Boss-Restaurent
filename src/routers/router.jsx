@@ -3,6 +3,7 @@ import Main from "../Layouts/Main/Main";
 import Home from "../Layouts/Home/Home/Home";
 import Menu from "../Layouts/Menu/Menu/Menu";
 import Order from "../Layouts/Order/Order";
+import Login from "../Layouts/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/order/:category",
         element: <Order></Order>
+      },
+      {
+        path: '/login',
+        element: <Login></Login>
       }
     ]
   },
