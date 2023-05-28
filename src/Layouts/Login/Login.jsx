@@ -3,8 +3,17 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
+import { useForm } from 'react-hook-form';
 
 const Login = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => {
+    console.log(data);
+    const {email, password} = data;
+    loginWithEmail(email, password)
+          .then(result => console.log(result.user))
+          .catch(error => console.log(error))
+  };
   const {loginWithEmail} = useContext(AuthContext);
   const captcahRef = useRef(null)
   const [disable, setDisable] = useState(true)
@@ -31,9 +40,7 @@ const Login = () => {
         const email = form.email;
         const password = form.password;
         console.log(email, password);
-        loginWithEmail(email, password)
-          .then(result => console.log(result.user))
-          .catch(error => console.log(error))
+        
     }
     return (
         <div>
@@ -50,7 +57,7 @@ const Login = () => {
               Sign in to your account
             </h1>
             
-            <form onSubmit={handleLogin} className="space-y-4 md:space-y-6" action="#">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6" action="#">
               {/* <h3 className="text-base text-red-600">{error}</h3> */}
               <div>
                 <label
@@ -61,11 +68,12 @@ const Login = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
+                  name='email'
+                  {...register("email")}
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary2 focus:border-primary2 block w-full p-2.5 "
                   placeholder="name@company.com"
-                  required
+                  
                 />
               </div>
               <div>
@@ -77,11 +85,12 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
-                  name="password"
+                  name='password'
+                  {...register("password")}
                   id="password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary1 focus:border-primary2 block w-full p-2.5 "
-                  required
+                  
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -89,10 +98,11 @@ const Login = () => {
                   <div className="flex items-center h-5">
                     <input
                       id="remember"
+                      {...register("remember")}
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary1 "
-                      required
+                    
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -112,21 +122,19 @@ const Login = () => {
               <LoadCanvasTemplate />
               <input
                   type="text"
-                  name="captcha"
+                  name='captcha'
                   id="captcha"
                   ref={captcahRef}
                   placeholder="Enter Captcha code"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary1 focus:border-primary2 block w-full p-2.5 "
-                  required
                 />
                 <span onClick={handleCaptcha} className="btn btn-block btn-xs">Match</span>
               </div>
-              <button
+              <input
+                type='submit'
                 className={`w-full ${disable ? "bg-slate-400 hover:bg-slate-500" : ""} text-white bg-primary2 hover:bg-primary1 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
                 disabled={disable}
-              >
-                Sign in
-              </button>
+              />
               <p className="text-sm font-light text-gray-500 ">
                 Don't have an account yet?{" "}
                 <Link
