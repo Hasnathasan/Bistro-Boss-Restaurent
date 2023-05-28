@@ -1,7 +1,28 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 const Login = () => {
+  const captcahRef = useRef(null)
+  const [disable, setDisable] = useState(true)
+  useEffect( () => {
+    loadCaptchaEnginge(6); 
+  },[]);
+
+  const handleCaptcha = () => {
+    const inputCaptcah = captcahRef.current.value;
+    console.log(inputCaptcah);
+    if(validateCaptcha(inputCaptcah)){
+      setDisable(false)
+      alert("Captcha Matched")
+    }
+    else{
+      alert("Captcha code unmatched")
+    }
+  }
+
+
     const handleLogin = event => {
         const form = event.target;
         const email = form.email;
@@ -81,9 +102,23 @@ const Login = () => {
                   Forgot password?
                 </a>
               </div>
+              <div>
+              <LoadCanvasTemplate />
+              <input
+                  type="text"
+                  name="captcha"
+                  id="captcha"
+                  ref={captcahRef}
+                  placeholder="Enter Captcha code"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary1 focus:border-primary2 block w-full p-2.5 "
+                  required
+                />
+                <span onClick={handleCaptcha} className="btn btn-block btn-xs">Match</span>
+              </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary2 hover:bg-primary1 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                className={`w-full ${disable ? "bg-slate-400 hover:bg-slate-500" : ""} text-white bg-primary2 hover:bg-primary1 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+                disabled={disable}
               >
                 Sign in
               </button>

@@ -22,12 +22,13 @@ const router = createBrowserRouter([
         path: "/order/:category",
         element: <Order></Order>
       },
-      {
+      
+    ]
+  },
+  {
         path: '/login',
         element: <Login></Login>
       }
-    ]
-  },
 ]);
 
 export default router;
