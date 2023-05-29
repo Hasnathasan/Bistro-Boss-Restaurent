@@ -5,6 +5,7 @@ import Menu from "../Layouts/Menu/Menu/Menu";
 import Order from "../Layouts/Order/Order";
 import Login from "../Layouts/Login/Login";
 import SignUp from "../Layouts/SignUp/SignUp";
+import PrivateRoute from "../Layouts/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/menu",
-        element: <Menu></Menu>,
+        element: <PrivateRoute><Menu></Menu></PrivateRoute>
       },
       {
         path: "/order/:category",

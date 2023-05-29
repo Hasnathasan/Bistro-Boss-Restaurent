@@ -1,22 +1,28 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate()
+  const location = useLocation()
+  let from = location.state?.from?.pathname || "/";
+  const {loginWithEmail} = useContext(AuthContext);
+  const captcahRef = useRef(null)
+  const [disable, setDisable] = useState(true)
   const onSubmit = data => {
     console.log(data);
     const {email, password} = data;
     loginWithEmail(email, password)
-          .then(result => console.log(result.user))
+          .then(result => {
+            console.log(result.user)
+            navigate(from, { replace: true });
+          })
           .catch(error => console.log(error))
   };
-  const {loginWithEmail} = useContext(AuthContext);
-  const captcahRef = useRef(null)
-  const [disable, setDisable] = useState(true)
   useEffect( () => {
     loadCaptchaEnginge(6); 
   },[]);
@@ -34,14 +40,6 @@ const Login = () => {
   }
 
 
-    const handleLogin = event => {
-      event.preventDefault()
-        const form = event.target;
-        const email = form.email;
-        const password = form.password;
-        console.log(email, password);
-        
-    }
     return (
         <div>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto">
@@ -66,10 +64,11 @@ const Login = () => {
                 >
                   Your email
                 </label>
+                {errors.email && <span>Email field is required</span>}
                 <input
                   type="email"
                   name='email'
-                  {...register("email")}
+                  {...register("email", { required: true })}
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary2 focus:border-primary2 block w-full p-2.5 "
                   placeholder="name@company.com"
@@ -83,10 +82,13 @@ const Login = () => {
                 >
                   Password
                 </label>
+                {errors.password?.type === "required" && <span>Password is required</span>}
+                {errors.password?.type === "pattern" && <span>Password doesn't exceptable</span>}
+                
                 <input
                   type="password"
                   name='password'
-                  {...register("password")}
+                  {...register("password", { required: true, pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]/})}
                   id="password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary1 focus:border-primary2 block w-full p-2.5 "
@@ -98,10 +100,10 @@ const Login = () => {
                   <div className="flex items-center h-5">
                     <input
                       id="remember"
-                      {...register("remember")}
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary1 "
+                      required
                     
                     />
                   </div>

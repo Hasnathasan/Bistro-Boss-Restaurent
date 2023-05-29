@@ -8,9 +8,17 @@ import dessertImg from "../../../assets/menu/dessert-bg.jpeg";
 import saladImg from "../../../assets/menu/salad-bg.jpg";
 import pizzasImg from "../../../assets/menu/pizza-bg.jpg";
 import soupImg from "../../../assets/menu/soup-bg.jpg";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Menu = () => {
+  const {user} = useContext(AuthContext)
   const [menus] = useMenu();
+  if(!user){
+    return <>
+     <h1>Loading...</h1>
+    </>
+  }
   const offers = menus.filter((menu) => menu.category === "offered");
   const desserts = menus.filter((menu) => menu.category === "dessert");
   const salads = menus.filter((menu) => menu.category === "salad");
