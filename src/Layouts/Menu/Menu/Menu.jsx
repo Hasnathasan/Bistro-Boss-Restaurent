@@ -12,12 +12,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 
 const Menu = () => {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const [menus] = useMenu();
-  if(!user){
-    return <>
-     <h1>Loading...</h1>
-    </>
+  if (!user) {
+    return (
+      <>
+        <h1>Loading...</h1>
+      </>
+    );
   }
   const offers = menus.filter((menu) => menu.category === "offered");
   const desserts = menus.filter((menu) => menu.category === "dessert");

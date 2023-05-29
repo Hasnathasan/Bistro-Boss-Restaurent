@@ -4,10 +4,10 @@ import { Navigation } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
-import '@smastrom/react-rating/style.css'
+import "@smastrom/react-rating/style.css";
 import { Rating } from "@smastrom/react-rating";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
-import { FaQuoteRight } from 'react-icons/fa';
+import { FaQuoteRight } from "react-icons/fa";
 
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
@@ -18,15 +18,19 @@ const Testimonials = () => {
   }, []);
   return (
     <div className="container mx-auto">
-        <SectionTitle
-            title={"TESTIMONIALS"}
-            subTitle={"What our client say"}
-        ></SectionTitle>
+      <SectionTitle
+        title={"TESTIMONIALS"}
+        subTitle={"What our client say"}
+      ></SectionTitle>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {reviews.map((review) => (
           <SwiperSlide key={review._id}>
             <div className="m-20 text-center flex flex-col items-center space-y-4">
-              <Rating style={{ maxWidth: 180 }} value={review.rating} readOnly />
+              <Rating
+                style={{ maxWidth: 180 }}
+                value={review.rating}
+                readOnly
+              />
               <FaQuoteRight></FaQuoteRight>
               <p>{review.details}</p>
               <h2 className="text-3xl text-amber-600">{review.name}</h2>

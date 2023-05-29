@@ -18,7 +18,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/menu",
-        element: <PrivateRoute><Menu></Menu></PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <Menu></Menu>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/order/:category",
@@ -32,8 +36,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <SignUp></SignUp>
-  }
+    element: <SignUp></SignUp>,
+  },
 ]);
 
 export default router;
