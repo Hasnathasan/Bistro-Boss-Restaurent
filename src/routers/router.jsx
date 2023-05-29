@@ -6,6 +6,7 @@ import Order from "../Layouts/Order/Order";
 import Login from "../Layouts/Login/Login";
 import SignUp from "../Layouts/SignUp/SignUp";
 import PrivateRoute from "../Layouts/PrivateRoute/PrivateRoute";
+import Cart from "../Layouts/AddToCart/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: "/order/:category",
         element: <Order></Order>,
       },
+      {
+        path: '/addtocart',
+        element: <Cart></Cart>
+      }
     ],
   },
   {
