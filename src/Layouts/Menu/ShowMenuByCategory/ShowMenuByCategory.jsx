@@ -15,7 +15,7 @@ const ShowMenuByCategory = ({ items, img, header, subTitle }) => {
           <ShowMenus key={menu._id} menu={menu}></ShowMenus>
         ))}
       </div>
-      <Link to={`/order/salads`}>
+      <Link to={`/order/${header}`}>
         <button className="btn btn-outline mt-5 mx-auto block border-0 border-b-2">
           Order your favorite food
         </button>

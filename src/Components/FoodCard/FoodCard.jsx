@@ -4,17 +4,18 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const FoodCard = ({ food }) => {
-  const { name, recipe, image, price } = food;
+  const { name, recipe, image, price, _id } = food;
   const { user } = useContext(AuthContext);
   const navigate = useNavigate()
-  const handleAddCart = (food) => {
+  const handleAddCart = () => {
     if (user) {
+      const cartItem = {foodId: _id, name, image, price, addedBy: user.email}
       fetch("http://localhost:5000/carts", {
         method: "POST",
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify(food)
+        body: JSON.stringify(cartItem)
       })
         .then((res) => res.json())
         .then((data) => {
@@ -57,7 +58,7 @@ const FoodCard = ({ food }) => {
         <p>{recipe}</p>
         <div className="card-actions justify-end">
           <button
-            onClick={() => handleAddCart(food)}
+            onClick={handleAddCart}
             className="btn btn-primary"
           >
             Add to Cart
