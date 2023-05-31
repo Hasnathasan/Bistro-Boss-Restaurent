@@ -7,6 +7,9 @@ import Login from "../Layouts/Login/Login";
 import SignUp from "../Layouts/SignUp/SignUp";
 import PrivateRoute from "../Layouts/PrivateRoute/PrivateRoute";
 import Cart from "../Layouts/AddToCart/Cart/Cart";
+import DashBoard from "../Layouts/DashBoard/DashBoard";
+import MyCart from "../Layouts/DashBoard/MyCart";
+import MyHome from "../Layouts/DashBoard/MyHome";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +46,20 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp></SignUp>,
   },
+  {
+    path: "/dashboard",
+    element: <DashBoard></DashBoard>,
+    children: [
+      {
+        path: "mycart",
+        element: <MyCart></MyCart>
+      },
+      {
+        path: "myhome",
+        element: <MyHome></MyHome>
+      }
+    ]
+  }
 ]);
 
 export default router;
