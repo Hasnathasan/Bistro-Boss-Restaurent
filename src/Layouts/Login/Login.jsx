@@ -37,20 +37,20 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
     .then(result => {
-      const saveUser = {name: result.displayName, email: result.email}
+      console.log(result);
+      const saveUser = {name: result.user.displayName, email: result.user.email}
       fetch("http://localhost:5000/users", {
           method: "POST",
-          headers: [
-            {
+          headers: {
               "content-type": "application/json"
-            }
-          ],
+            },
           body: JSON.stringify(saveUser)
         })
         .then(res => res.json())
         .then(data => {
           console.log(data);
         })
+        navigate(from, { replace: true });
     })
     .catch(error => console.log(error))
   }

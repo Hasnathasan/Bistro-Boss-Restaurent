@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useRef } from "react";
 
 const SignUp = () => {
    const {
@@ -12,6 +13,8 @@ const SignUp = () => {
     } = useForm();
   const { signUpWithEmail, logOut } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const form = useRef()
+  console.log(form);
   const onSubmit = data => {
    const {email, password, name, photo} = data;
     setError("");
@@ -26,11 +29,9 @@ const SignUp = () => {
           .then(() => {
             fetch("http://localhost:5000/users", {
           method: "POST",
-          headers: [
-            {
+          headers: {
               "content-type": "application/json"
-            }
-          ],
+            },
           body: JSON.stringify(saveUser)
         })
         .then(res => res.json())
@@ -38,7 +39,7 @@ const SignUp = () => {
           console.log(data);
         })
           })
-        
+          form.current.reset()
         logOut();
       })
       .catch((error) => setError(error.message));
@@ -54,6 +55,7 @@ const SignUp = () => {
 
             <form
               onSubmit={handleSubmit(onSubmit)}
+              ref={form}
               className="space-y-4 md:space-y-6"
               action="#"
             >

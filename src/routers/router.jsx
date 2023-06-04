@@ -7,9 +7,10 @@ import Login from "../Layouts/Login/Login";
 import SignUp from "../Layouts/SignUp/SignUp";
 import PrivateRoute from "../Layouts/PrivateRoute/PrivateRoute";
 import Cart from "../Layouts/AddToCart/Cart/Cart";
-import DashBoard from "../Layouts/DashBoard/DashBoard";
+import DashBoard from "../Layouts/DashBoard/DashBoard/DashBoard";
 import MyCart from "../Layouts/DashBoard/MyCart";
 import MyHome from "../Layouts/DashBoard/MyHome";
+import AllUsers from "../Layouts/DashBoard/Admin/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashBoard></DashBoard>,
+    element: <PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
     children: [
       {
         path: "mycart",
@@ -57,7 +58,11 @@ const router = createBrowserRouter([
       {
         path: "myhome",
         element: <MyHome></MyHome>
-      }
+      },
+      {
+        path: "allusers",
+        element: <AllUsers></AllUsers>
+      },
     ]
   }
 ]);

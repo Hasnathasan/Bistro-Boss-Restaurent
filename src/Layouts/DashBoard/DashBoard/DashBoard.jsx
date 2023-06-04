@@ -45,7 +45,7 @@ const DashBoard = () => {
                 <NavLink to="myhomefd">Sidebar Item 2</NavLink>
               </li>
               <li>
-                <NavLink to="myhomesd">Sidebar Item 2</NavLink>
+                <NavLink to="allusers">All Users</NavLink>
               </li>
             </>
           ) : (
