@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
-  const { loginWithEmail } = useContext(AuthContext);
+  const { loginWithEmail, googleSignIn } = useContext(AuthContext);
   const captcahRef = useRef(null);
   const [disable, setDisable] = useState(true);
   const onSubmit = (data) => {
@@ -34,7 +34,26 @@ const Login = () => {
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
-
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+    .then(result => {
+      const saveUser = {name: result.displayName, email: result.email}
+      fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: [
+            {
+              "content-type": "application/json"
+            }
+          ],
+          body: JSON.stringify(saveUser)
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+        })
+    })
+    .catch(error => console.log(error))
+  }
   const handleCaptcha = () => {
     const inputCaptcah = captcahRef.current.value;
     console.log(inputCaptcah);
@@ -170,7 +189,7 @@ const Login = () => {
             </h4>
             <hr />
             <button
-              //   onClick={handleGoogleSignIn}
+                onClick={handleGoogleSignIn}
               type="button"
               className="w-full text-white bg-primary2 hover:bg-primary1/90 focus:ring-4 focus:outline-none focus:ring-primary2/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex justify-center items-center mr-2 mb-2"
             >

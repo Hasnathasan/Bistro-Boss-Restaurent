@@ -24,6 +24,9 @@ const Navbar = () => {
           <div className="badge badge-secondary">+{cart?.length}</div>
         </Link>
       </li>
+      <li>
+      <Link to="dashboard">Dash Board</Link>
+      </li>
     </>
   );
   return (

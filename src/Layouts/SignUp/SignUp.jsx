@@ -2,25 +2,43 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const SignUp = () => {
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
   const { signUpWithEmail, logOut } = useContext(AuthContext);
   const [error, setError] = useState("");
-  const handleSignUp = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const photo = form.photo.value;
+  const onSubmit = data => {
+   const {email, password, name, photo} = data;
     setError("");
     signUpWithEmail(email, password)
       .then((result) => {
         console.log(result.user);
+        const saveUser = {name, email};
         updateProfile(result.user, {
           displayName: name,
           photoURL: photo,
-        });
+        })
+          .then(() => {
+            fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: [
+            {
+              "content-type": "application/json"
+            }
+          ],
+          body: JSON.stringify(saveUser)
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+        })
+          })
+        
         logOut();
       })
       .catch((error) => setError(error.message));
@@ -35,7 +53,7 @@ const SignUp = () => {
             </h1>
 
             <form
-              onSubmit={handleSignUp}
+              onSubmit={handleSubmit(onSubmit)}
               className="space-y-4 md:space-y-6"
               action="#"
             >
@@ -48,13 +66,13 @@ const SignUp = () => {
                 >
                   Your Name
                 </label>
+                {errors.name && <span>Name field is required</span>}
                 <input
                   type="text"
-                  name="name"
                   id="name"
+                  {...register("name", { required: true })}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary2 focus:border-primary2 block w-full p-2.5 "
                   placeholder="Your Name"
-                  required
                 />
               </div>
               <div>
@@ -64,13 +82,13 @@ const SignUp = () => {
                 >
                   Your email
                 </label>
+                {errors.email && <span>Email field is required</span>}
                 <input
                   type="email"
-                  name="email"
+                  {...register("email", { required: true })}
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary2 focus:border-primary2 block w-full p-2.5 "
                   placeholder="name@company.com"
-                  required
                 />
               </div>
               <div>
@@ -80,13 +98,13 @@ const SignUp = () => {
                 >
                   Password
                 </label>
+                {errors.password && <span>Password field is required</span>}
                 <input
                   type="password"
-                  name="password"
+                  {...register("password", { required: true })}
                   id="password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary1 focus:border-primary2 block w-full p-2.5 "
-                  required
                 />
               </div>
               <div>
@@ -96,13 +114,13 @@ const SignUp = () => {
                 >
                   Photo URL
                 </label>
+                {errors.photo && <span>Photo field is required</span>}
                 <input
                   type="url"
-                  name="photo"
+                  {...register("photo", { required: true })}
                   id="photo"
                   placeholder="Your Photo URL"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary2 focus:border-primary2 block w-full p-2.5 "
-                  required
                 />
               </div>
 
