@@ -11,6 +11,7 @@ import DashBoard from "../Layouts/DashBoard/DashBoard/DashBoard";
 import MyCart from "../Layouts/DashBoard/MyCart";
 import MyHome from "../Layouts/DashBoard/MyHome";
 import AllUsers from "../Layouts/DashBoard/Admin/AllUsers/AllUsers";
+import AdminHome from "../Layouts/DashBoard/Admin/AdminHome/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "myhome",
         element: <MyHome></MyHome>
+      },
+      {
+        path: "adminhome",
+        element: <AdminHome></AdminHome>
       },
       {
         path: "allusers",

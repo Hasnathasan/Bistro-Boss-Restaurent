@@ -5,6 +5,7 @@ import useIsAdmin from "../../../hooks/useIsAdmin";
 
 const DashBoard = () => {
   const [isAdmin] = useIsAdmin();
+  // const isAdmin = true;
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -23,15 +24,15 @@ const DashBoard = () => {
           {isAdmin ? (
             <>
               <li>
-                <NavLink to="myhome">
+                <NavLink to="adminhome">
                   <FaHome></FaHome> Admin Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to="mycart">Sidebar Item 2</NavLink>
+                <NavLink to="manageitems">Manage Items</NavLink>
               </li>
               <li>
-                <NavLink to="myhomed">Sidebar Item 2</NavLink>
+                <NavLink to="manageusers">Manage Users</NavLink>
               </li>
               <li>
                 <NavLink to="myhomee">Sidebar Item 2</NavLink>
