@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
 import { FaTrashAlt, FaUserShield } from 'react-icons/fa';
+import { AuthContext } from "../../../../providers/AuthProvider";
 
 const AllUsers = () => {
+  const {user} = useContext(AuthContext);
   const { data: users = [] , refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users");
+      const res = await fetch(`http://localhost:5000/users?email=${user.email}`, {headers: {authorization: `Bearer ${localStorage.getItem("access-token")}`}});
       return res.json();
     },
   });

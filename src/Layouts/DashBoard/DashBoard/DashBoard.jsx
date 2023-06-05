@@ -1,9 +1,10 @@
 import { FaHome } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import "./DashBoard.css";
+import useIsAdmin from "../../../hooks/useIsAdmin";
 
 const DashBoard = () => {
-  const isAdmin = true;
+  const [isAdmin] = useIsAdmin();
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
